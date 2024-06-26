@@ -1,0 +1,42 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto; /* Adicionar barra de rolagem quando necessário /
+  z-index: 1000; / Assegurar que a barra lateral fique sobreposta ao conteúdo principal */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 220px; /* Ajustar a margem esquerda para acomodar a largura da barra lateral e padding */
+}
