@@ -1,54 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import UsuarioItem from './UsuarioItem';
-import UsuarioForm from './UsuarioForm';
+import axios from 'axios';
 
 const UsuarioList = () => {
     const [usuarios, setUsuarios] = useState([]);
-    const [selectedUsuario, setSelectedUsuario] = useState(null);
 
     useEffect(() => {
         fetchUsuarios();
     }, []);
 
     const fetchUsuarios = async () => {
-        const response = await fetch('http://api.example.com/usuarios');
-        const data = await response.json();
-        setUsuarios(data);
-    };
-
-    const handleAddUsuario = async (usuario) => {
-        const response = await fetch('http://api.example.com/usuarios', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(usuario),
-        });
-        const newUsuario = await response.json();
-        setUsuarios([...usuarios, newUsuario]);
-    };
-
-    const handleUpdateUsuario = async (usuario) => {
-        await fetch(`http://api.example.com/usuarios/${usuario.id_usuario}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(usuario),
-        });
-        fetchUsuarios();
-        setSelectedUsuario(null);
-    };
-
-    const handleDeleteUsuario = async (id_usuario) => {
-        await fetch(`http://api.example.com/usuarios/${id_usuario}`, {
-            method: 'DELETE',
-        });
-        fetchUsuarios();
+        try {
+            const response = await axios.get('http://localhost:8080/api/usuario');
+            setUsuarios(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar usuários:', error);
+        }
     };
 
     return (
         <div>
-            <UsuarioForm onAddUsuario={handleAddUsuario} onUpdateUsuario={handleUpdateUsuario} selectedUsuario={selectedUsuario} />
+            <h2>Lista de Usuários</h2>
             <ul>
                 {usuarios.map(usuario => (
-                    <UsuarioItem key={usuario.id_usuario} usuario={usuario} onEdit={() => setSelectedUsuario(usuario)} onDelete={() => handleDeleteUsuario(usuario.id_usuario)} />
+                    <li key={usuario.id_usuario}>
+                        <strong>Nome:</strong> {usuario.nome} <br />
+                        <strong>Email:</strong> {usuario.email} <br />
+                        <strong>Endereço:</strong> {usuario.endereco} <br />
+                        <strong>Telefone:</strong> {usuario.telefone} <br />
+                    </li>
                 ))}
             </ul>
         </div>

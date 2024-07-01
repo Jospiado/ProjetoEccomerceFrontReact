@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { FaBars } from 'react-icons/fa'; // Importa o ícone de menu sanduíche
+import { FaBars } from 'react-icons/fa';
+import UsuarioList from './components/Usuario/UsuarioList';
 import UsuarioForm from './components/Usuario/UsuarioForm';
 import CarrinhoForm from './components/Carrinho/CarrinhoForm';
 import CategoriaForm from './components/Categoria/CategoriaForm';
 import AvaliacaoForm from './components/Avaliacao/AvaliacaoForm';
 import PagamentoForm from './components/Pagamento/PagamentoForm';
 import PedidoForm from './components/Pedido/PedidoForm';
-import './App.css'; // Importa arquivo de estilos CSS
+import './App.css';
 
 const App = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -27,7 +28,8 @@ const App = () => {
                         <h2>Menu</h2>
                     </div>
                     <ul>
-                        <li><Link to="/usuario">Cadastro de Usuário</Link></li>
+                        <li><Link to="/usuarios">Lista de Usuários</Link></li>
+                        <li><Link to="/usuario/novo">Novo Usuário</Link></li>
                         <li><Link to="/carrinho">Cadastro de Carrinho</Link></li>
                         <li><Link to="/categoria">Cadastro de Categoria</Link></li>
                         <li><Link to="/avaliacao">Cadastro de Avaliação</Link></li>
@@ -38,7 +40,9 @@ const App = () => {
 
                 <main className="main-content">
                     <Routes>
-                        <Route path="/usuario" element={<UsuarioForm />} />
+                        <Route path="/usuarios" element={<UsuarioList />} />
+                        <Route path="/usuario/novo" element={<UsuarioForm />} />
+                        <Route path="/usuario/editar/:id" element={<UsuarioForm />} />
                         <Route path="/carrinho" element={<CarrinhoForm />} />
                         <Route path="/categoria" element={<CategoriaForm />} />
                         <Route path="/avaliacao" element={<AvaliacaoForm />} />
